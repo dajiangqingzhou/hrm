@@ -30,7 +30,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
  * @Description: 处理职位请求控制器  
  * @version V1.0   
  */
-
+ 
 @Controller
 @RequestMapping("job")
 public class JobController {
