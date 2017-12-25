@@ -46,13 +46,35 @@ public class AuthorizedInterceptor  implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object handler) throws Exception {
 		/** 默认用户没有登录 */
-		boolean flag = false; 
+		boolean flag = false;
 		/** 获得请求的ServletPath */
-		
+		String servletPath = request.getServletPath();
+
 		/**  判断请求是否需要拦截 */
-       
+		Object attribute = request.getSession().getAttribute(HrmConstants.USER_SESSION);
+		if (attribute != null) {
+			flag = true;
+		} else if (servletPath.endsWith(".js")||
+				servletPath.endsWith(".css")||
+				servletPath.endsWith(".gif")||
+				servletPath.endsWith(".jpg")||
+				servletPath.endsWith(".png")||
+				servletPath.endsWith(".ttf")||
+				servletPath.endsWith(".woff")
+		){
+			flag = true;
+		} else {
+			for (int i = 0; i < IGNORE_URI.length; i++) {
+				if (IGNORE_URI[i].equals(servletPath)) {
+					flag = true;
+				}
+			}
+		}
+
         /** 如果需要 则拦截请求 */
-         
+		if (!flag){
+			request.getRequestDispatcher("/loginForm").forward(request,response);
+		}
         return true;
 		
 	}

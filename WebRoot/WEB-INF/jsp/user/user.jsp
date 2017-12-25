@@ -52,7 +52,7 @@
 	 				   if(r){
 	 					   // alert("删除："+ids.get());
 	 					   // 发送请求
-	 					   window.location = "${ctx }/user/removeUser?ids=" + ids.get();
+	 					   window.location = "${ctx }/user/removeUser?pageIndex=${requestScope.pageModel.pageIndex}&ids=" + ids.get();
 	 				   }
 	 			   });
 	 		   }
@@ -133,7 +133,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/user/selectUser?pageIndex={0}"/>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>
