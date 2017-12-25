@@ -118,7 +118,7 @@
 					  <td>${user.status }</td>
 					  <td><f:formatDate value="${user.createDate}" 
 								type="date" dateStyle="long"/></td>
-					 <td align="center" width="40px;"><a href="${ctx}/user/toUpdateUser?flag=1&id=${user.id}">
+					 <td align="center" width="40px;"><a href="${ctx}/user/updateUser?flag=1&id=${user.id}">
 							<img title="修改" src="${ctx}/images/update.gif"/></a>
 					  </td>
 				</tr>

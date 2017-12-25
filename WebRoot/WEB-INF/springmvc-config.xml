@@ -19,6 +19,11 @@
     <mvc:resources location="/" mapping="/**/*.ttf"/>
     <mvc:resources location="/" mapping="/**/*.woff"/>
 
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <bean class="org.deepsl.hrm.interceptor.AuthorizedInterceptor"/>
+    </mvc:interceptors>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

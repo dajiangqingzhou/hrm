@@ -14,6 +14,7 @@ import org.deepsl.hrm.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,23 +114,33 @@ public class UserController {
 	}
 
 
-	@RequestMapping("/user/toUpdateUser")
-	public String toUpdateUser(Integer id, Model model,int flag) {
+	@RequestMapping("/user/updateUser")
+	public String toUpdateUser(Integer id, User user, Model model,Integer flag) {
 		if (flag == 1) {
 			User userById = userService.findUserById(id);
 			model.addAttribute("user", userById);
 			return "/user/showUpdateUser";
-		}
+		} else {
+            userService.modifyUser(user);
+            return "redirect:/user/selectUser";
+        }
 	}
 
-	@RequestMapping("/user/updateUser")
-	public String updateUser(User user, int pageIndex) {
-		userService.modifyUser(user);
-		return "redirect:/user/selectUser?pageIndex=" + pageIndex;
+
+	@RequestMapping("/user/addUser")
+	public String addUser(User user,int flag) {
+		if (flag == 1) {
+			return "/user/showAddUser";
+		}
+		userService.addUser(user);
+		return "redirect:/user/selectUser";
 	}
 	
-	
- 
+ 	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "/loginForm";
+	}
 	 
 	
 }

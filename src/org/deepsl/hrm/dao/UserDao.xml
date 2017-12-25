@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     </update>
 
     <update id="save" parameterType="user">
-        insert into user_inf values(null,#{username},#{loginname},#{password},#{status},#{createDate});
+        insert into user_inf values(null,#{username},#{loginname},#{password},#{status},now());
     </update>
     
     <select id="count" parameterType="map" resultType="int">
