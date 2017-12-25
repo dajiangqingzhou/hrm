@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.deepsl.hrm.domain.User;
+import org.springframework.stereotype.Repository;
 
 import static org.deepsl.hrm.util.common.HrmConstants.USERTABLE;
 
@@ -17,6 +18,7 @@ import static org.deepsl.hrm.util.common.HrmConstants.USERTABLE;
  * @Description: UserMapper接口
  * @version V1.0   
  */
+@Repository
 public interface UserDao {
 
 	// 根据登录名和密码查询员工
@@ -26,7 +28,7 @@ public interface UserDao {
 	User selectById(Integer id);
 	
 	// 根据id删除用户
-	void deleteById(Integer id);
+	void deleteByIds(Map<String,List<Integer>> map);
 		
 	// 动态修改用户
 	void update(User user);
