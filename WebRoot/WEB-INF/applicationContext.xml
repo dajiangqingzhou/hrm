@@ -29,6 +29,7 @@
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.deepsl.hrm.dao"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
     <bean id="txManager"
