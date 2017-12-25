@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		delete from dept_inf where id = #{id};
 	</update>
 	
-<!-- 修改 -->	
+<!-- 修改 1-->	
     <select id="selectById" parameterType="int" resultType="dept">
        select * from dept_inf where id = #{id};
     </select>
