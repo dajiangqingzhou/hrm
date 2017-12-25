@@ -24,7 +24,7 @@ public interface DeptDao {
 	
 	Dept selectById(int id);
 
-	// 根据id删除部门
+	// 根据id删除部门  
 	void deleteById(Integer id);
 	
 	// 动态插入部门
