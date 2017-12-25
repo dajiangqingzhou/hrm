@@ -34,7 +34,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 @Controller
 @RequestMapping("job")
 public class JobController {
-
+ 
 	@Autowired
 	OtherServiceInterface otherService;
 
