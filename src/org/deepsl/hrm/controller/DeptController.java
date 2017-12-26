@@ -2,7 +2,7 @@ package org.deepsl.hrm.controller;
 
 import java.util.List;
 
-import javax.mail.Flags.Flag;
+//import javax.mail.Flags.Flag;
 import javax.servlet.http.HttpServletRequest;
 
 import org.deepsl.hrm.domain.Dept;
