@@ -39,10 +39,11 @@ public class DocumentController {
 
     @RequestMapping("selectDocument")
     public String selectDocument(Model model, String title, Integer pageIndex, HttpServletRequest request) {
-        String str = "%" + title + "%";
         Document document = new Document();
+        PageModel pageModel = new PageModel();
+        String str = "%" + title + "%";
         document.setTitle(str);
-        return null;
+        return "/document/document";
     }
  
 }
