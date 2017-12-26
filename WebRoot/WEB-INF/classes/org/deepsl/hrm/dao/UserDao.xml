@@ -5,8 +5,54 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <mapper namespace="org.deepsl.hrm.dao.UserDao">
   
    <select id="selectByLoginnameAndPassword" parameterType="hashmap"  resultType="org.deepsl.hrm.domain.User" >
-		 select * from  user_inf  where loginname = #{loginname} and password = #{password} 
+		 select * from  user_inf  where loginname = #{loginname} and password = #{password};
    </select>
 
+    <select id="selectById" parameterType="Integer[]" resultType="user">
+        select * from user_inf where id=#{id};
+    </select>
+
+    <select id="deleteByIds" parameterType="map">
+        delete from user_inf
+        <where>
+            <foreach collection="idsList" open="id in (" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <update id="update" parameterType="user">
+        update user_inf set username=#{username},loginname=#{loginname},password=#{password},
+        status=#{status},createDate=now() where id=#{id};
+    </update>
+
+    <update id="save" parameterType="user">
+        insert into user_inf values(null,#{username},#{loginname},#{password},#{status},now());
+    </update>
+    
+    <select id="count" parameterType="map" resultType="int">
+        select count(*) from user_inf
+        <where>
+            <if test="user!=null and user.username!=null and !user.username.trim().isEmpty()">
+                and username like #{user.username}
+            </if>
+            <if test="user!=null and user.status!=null">
+                and status=#{user.status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPage" parameterType="map" resultType="user">
+        select * from user_inf
+        <where>
+            <if test="user!=null and user.username!=null and !user.username.trim().isEmpty()">
+                and username like #{user.username}
+            </if>
+            <if test="user!=null and user.status!=null">
+                and status=#{user.status}
+            </if>
+        </where>
+        LIMIT #{pageModel.pageSize} OFFSET #{pageModel.firstLimitParam}
+    </select>
 
 </mapper>
