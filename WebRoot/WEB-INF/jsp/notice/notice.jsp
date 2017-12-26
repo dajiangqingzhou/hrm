@@ -20,7 +20,7 @@
 	<script src="${ctx}/js/ligerUI/js/core/base.js" type="text/javascript"></script>
 	<script src="${ctx}/js/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
 	<script src="${ctx}/js/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
-	<script src="${ctx}/js/ligerUI/js/plugins/ligerResizable.jss" type="text/javascript"></script>
+	<script src="${ctx}/js/ligerUI/js/plugins/ligerResizable.js" type="text/javascript"></script>
 	<link href="${ctx}/css/pager.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript">
 	$(function(){
@@ -101,7 +101,7 @@
 		  <table width="100%" border="0" cellpadding="0" cellspacing="10" class="main_tab">
 		    <tr>
 			  <td class="fftd">
-			  	<form name="noticeform" method="post" id="noticeform" action="${ctx}/notice/selectNotice">
+			  	<form name="noticeform" method="post" id="noticeform" action="${ctx}/notice/selectNotice?pageIndex=1">
 				    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 					  <tr>
 					    <td class="font3">
@@ -145,7 +145,7 @@
 					 <td align="center" width="40px;"><a href="${ctx }/notice/updateNotice?flag=1&id=${notice.id}">
 							<img title="修改" src="${ctx }/images/update.gif"/></a>
 					  </td>
-					  <td align="center"  width="40px;"><a href="#" id="prev_${notice.id }">
+					  <td align="center"  width="40px;"><a href="${ctx }/notice/previewNotice?id=${notice.id }">
 							<img title="预览" src="${ctx }/images/prev.gif"/></a>
 					  </td>
 				</tr>
@@ -160,7 +160,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/employee/selectEmployee?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/notice/selectNotice?pageIndex={0}"/>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>

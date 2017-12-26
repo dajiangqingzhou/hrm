@@ -1,5 +1,6 @@
 package org.deepsl.hrm.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +19,12 @@ public interface NoticeDao {
 
 	// 动态查询
 	 
-	List<Notice> selectByPage(Map<String, Object> params);
 	
- 	Integer count(Map<String, Object> params);
+	List<Notice> selectByPage(HashMap<String, Object> params);
+	
+ 	Integer count(HashMap<String, Object> params);
 		
- 	Notice selectById(int id);
+ 	Notice selectById(Integer id);
 	
 	// 根据id删除公告
  	void deleteById(Integer id);
@@ -32,5 +34,12 @@ public interface NoticeDao {
 		
 	// 动态修改公告
  	void update(Notice notice);
+
+	
+
+
+ 	
+
+
 	
 }
