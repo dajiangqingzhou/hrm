@@ -5,8 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Employee implements java.io.Serializable{
 
 	private Integer id;			// id
-	private Dept dept;			// 部门
-	private Job job;			// 职位
+    private Dept dept;			// 部门
+    private Job job;			// 职位
 	private String name;		// 名称
 	private String cardId;		// 身份证
 	private String address;		// 地址
@@ -17,6 +17,7 @@ public class Employee implements java.io.Serializable{
 	private String email;		// 邮箱
 	private Integer sex;		// 性别
 	private String party;		// 政治面貌
+
 	/**
 	 *  使用@ModelAttribute接收参数时
 	 *  form表单中有日期,Spring不知道该如何转换,

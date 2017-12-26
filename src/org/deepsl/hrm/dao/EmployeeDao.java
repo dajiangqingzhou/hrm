@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.mapping.FetchType;
 import org.deepsl.hrm.domain.Employee;
+import org.deepsl.hrm.domain.EmployeeCondition;
+import org.springframework.stereotype.Repository;
 
 import static org.deepsl.hrm.util.common.HrmConstants.EMPLOYEETABLE;
 
@@ -18,6 +20,7 @@ import static org.deepsl.hrm.util.common.HrmConstants.EMPLOYEETABLE;
  * @Description: EmployeeMapper接口
  * @version V1.0   
  */
+@Repository
 public interface EmployeeDao {
 
 	// 根据参数查询员工总数
