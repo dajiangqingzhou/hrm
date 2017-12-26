@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.deepsl.hrm.dao.EmployeeDao">
+    <insert id="save" parameterType="employee">
+      insert into employee_inf VALUES (#{id},#{name},#{cardId},#{address},#{postCode},#{tel},#{phone},#{qqNum},#{email},#{sex},#{party},#{dept.id},#{job.id},#{birthday},#{race},#{education},#{speciality},#{hobby},#{remark},null);
+    </insert>
+
+    <select id="count" parameterType="hashMap" resultType="int">
+        SELECT COUNT(*) from employee_inf
+        <include refid="employeeCondition"></include>
+    </select>
+    <select id="selectByPage" parameterType="hashMap" resultMap="employeeMap">
+        SELECT * FROM employee_inf
+        <include refid="employeeCondition"></include>
+    </select>
+    <resultMap id="employeeMap" type="employee">
+        <id property="id" column="id"></id>
+        <association property="job" column="jobId" select="org.deepsl.hrm.dao.JobDao.selectById"
+                     javaType="job">
+            <id property="id" column="id"></id>
+        </association>
+        <association property="dept" column="depId" select="org.deepsl.hrm.dao.DeptDao.selectById"
+                     javaType="dept">
+            <id property="id" column="id"></id>
+        </association>
+    </resultMap>
+
+    <select id="selectById" resultMap="employeeMap" parameterType="integer">
+        select * from employee_inf where id = #{id};
+    </select>
+
+
+    <sql id="employeeCondition">
+        <where>
+            <if test=" job_id !=null">
+                jobId = #{job_id}
+            </if>
+            <if test=" name !=null">
+                and name = #{name}
+            </if>
+            <if test=" cardId !=null">
+                and cardId = #{cardId}
+            </if>
+            <if test=" sex !=null">
+                and sex = #{sex}
+            </if>
+            <if test=" phone !=null">
+                and phone = #{phone}
+            </if>
+            <if test=" dept_id =null">
+                and deptId = #{dept_id}
+            </if>
+        </where>
+        <if test="limit != null &amp; offset != null ">
+            limit #{limit} offset #{offset}
+        </if>
+        <if test="limit != null &amp; offset == null ">
+            limit #{limit} offset 0
+        </if>
+    </sql>
+</mapper>
