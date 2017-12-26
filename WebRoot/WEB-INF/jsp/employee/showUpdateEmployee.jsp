@@ -195,7 +195,7 @@
 			<tr>
 				<td class="font3 fftd">
 					出生日期：<input cssClass="Wdate" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'});" 
-					name="birthday" id="birthday" size="40"/>&nbsp;&nbsp;
+					name="birthday" id="birthday" value="${employee.birthday }" size="40"/>&nbsp;&nbsp;
 					民&nbsp;&nbsp;&nbsp;&nbsp;族：<input name="race" id="race" size="20" value="${employee.race }"/>
 				</td>
 			</tr>
