@@ -26,7 +26,7 @@ public class DeptServiceImpl implements DeptService{
 	@Transactional
 	@Override
 	public Integer count(Map<String, Object> params) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub22
 		return null;
 	}*/
 
