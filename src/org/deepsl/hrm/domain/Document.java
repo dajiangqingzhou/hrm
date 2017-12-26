@@ -13,6 +13,14 @@ public class Document implements java.io.Serializable{
 	private String remark;			// 描述
 	private java.util.Date createDate;	// 上传时间
 	private User user;				// 上传人
+	private String fileUrl;
+	
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
 	// 无参数构造器
 	public Document() {
 		super();
@@ -66,8 +74,10 @@ public class Document implements java.io.Serializable{
 	public String toString() {
 		return "Document [id=" + id + ", title=" + title + ", fileName="
 				+ fileName + ", file=" + file + ", remark=" + remark
-				+ ", createDate=" + createDate + ", user=" + user + "]";
+				+ ", createDate=" + createDate + ", user=" + user
+				+ ", fileUrl=" + fileUrl + "]";
 	}
+	
 	
 	
 

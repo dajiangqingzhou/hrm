@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.deepsl.hrm.dao.DocumentDao">
+  
+   <select id="count" parameterType="map" resultType="int">
+       select count(*) from document_inf
+        <where>
+            <if test="document!=null and document.title!=null">
+                title like #{document.title}
+            </if>
+        </where>
+   </select>
+    <select id="selectByPage" parameterType="map" resultMap="documentMap">
+        select * from document_inf
+        <where>
+            <if test="document!=null and document.title!=null">
+                title like #{document.title}
+            </if>
+        </where>
+        LIMIT #{pageModel.pageSize} OFFSET #{pageModel.firstLimitParam}
+    </select>
+    <resultMap id="documentMap" type="document">
+        <id column="id" property="id"></id>
+
+        <association column="uid" property="user" javaType="user"
+                     select="org.deepsl.hrm.dao.UserDao.selectById" fetchType="lazy">
+            <id column="id" property="id"></id>
+        </association>
+    </resultMap>
+    <delete id="deleteDocumentByIds" parameterType="map">
+        delete from document_inf
+        <where>
+            <foreach collection="idsList" item="id" separator="," open="id in (" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+    <update id="update" parameterType="document">
+        update document_inf set title=#{title},fileName=#{fileName},fileUrl=#{fileUrl},
+        remark=#{remark},createDate=now() where id=#{id}
+    </update>
+
+    <select id="selectById" parameterType="int" resultType="document">
+        select * from document_inf where id=#{id}
+    </select>
+</mapper>

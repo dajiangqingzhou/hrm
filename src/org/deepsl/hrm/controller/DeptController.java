@@ -2,21 +2,15 @@ package org.deepsl.hrm.controller;
 
 import java.util.List;
 
-import javax.mail.Flags.Flag;
 import javax.servlet.http.HttpServletRequest;
 
 import org.deepsl.hrm.domain.Dept;
 import org.deepsl.hrm.service.DeptService;
-import org.deepsl.hrm.service.HrmService;
 import org.deepsl.hrm.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
 /**
  * @Description: 处理部门请求控制器
  * @author
@@ -31,9 +25,9 @@ public class DeptController {
 
 	// 查找所有部门
 	@RequestMapping("selectAllDept")
-	public String selectAllDept(Model model) {
-		// 不分页的情况
-		List<Dept> selectAllDept = service.selectAllDept();
+	public String selectAllDept(HttpServletRequest request,Model model,Integer pageIndex) {
+		// 不分页的情况12
+	/*	List<Dept> selectAllDept = service.selectAllDept();
 		System.out.println("DeptController.selectAllDept()" + selectAllDept);
 		if (selectAllDept != null) {
 			model.addAttribute("depts", selectAllDept);
@@ -41,41 +35,39 @@ public class DeptController {
 			return "/dept/dept";
 		} else {
 			return "/dept/deptError";
+		}*/
+
+// 分页查找
+		String keyName = request.getParameter("keyName");
+		PageModel pageModel = new PageModel();
+		Dept dept = new Dept();
+		//==null表示没有条件查询
+		if (pageIndex == null) {
+			pageIndex = 1;
+			request.getSession().setAttribute("dept",dept);
+		} else {
+			dept = (Dept) request.getSession().getAttribute("dept");
 		}
-
-		// 分页查找
-		/*PageModel pageModel = new PageModel();*/
-	/*	
-		service.count();
 		pageModel.setPageIndex(pageIndex);
-		pageModel.setRecordCount(recordCount);
-		 service.selectByPage(params);
+		//有条件查询时
+		if (keyName!=null && keyName!="") {
+			String str = "%" + keyName + "%";
+			dept.setName(str);			
+			request.getSession().setAttribute("dept",dept);
 		
-		 if (selectAllDept != null) {
+		}
+		//查询数据
+		List<Dept> depts = service.selectByPage(dept,pageModel);					
+		 if (depts != null) {
+	 		 model.addAttribute("depts",depts);
 			 model.addAttribute("pageModel",pageModel);
-
 				return "/dept/dept";
 			} else {
 				return "/dept/deptError";
 			}
-*/
+
 	}
-	//按条件查询
-	@RequestMapping("selectDeptByKey")
-	public String selectDeptByKey(HttpServletRequest request,Model model) {
-		String key = request.getParameter("keyName");
-		
-		List<Dept>  selectByKey = service.selectByKey();
-		if (selectByKey != null) {
-			model.addAttribute("depts", selectByKey);
-			
-			return "/dept/dept";
-		} else {
-			return "/dept/deptError";
-		}
-		
-	}
-	
+
    
 	// 添加部门
 	@RequestMapping("addDept")

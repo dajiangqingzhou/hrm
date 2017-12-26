@@ -4,14 +4,14 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+//import javax.enterprise.context.RequestScoped;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.deepsl.hrm.domain.Notice;
 import org.deepsl.hrm.domain.User;
 import org.deepsl.hrm.service.HrmService;
-import org.deepsl.hrm.service.NoticeService;
+//import org.deepsl.hrm.service.NoticeService;
 import org.deepsl.hrm.util.common.HrmConstants;
 import org.deepsl.hrm.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class NoticeController {
 	
 	
 	@Autowired
-	NoticeService service;
+//	NoticeService service;
 	
 	@RequestMapping("showAddNotice")
 	public String showAddNotice(){
@@ -55,7 +55,7 @@ public class NoticeController {
 		user.setId(1);
 		notice.setUser(user);
 
-		service.addNotice(notice);
+//		service.addNotice(notice);
 		return "notice/showAddNotice";
 
 	}
@@ -65,11 +65,11 @@ public class NoticeController {
 		
 		ModelAndView mv = new ModelAndView();
 		String num = request.getParameter("pageIndex");
-		PageModel pageModel = service.getPageModel(num);
+//		PageModel pageModel = service.getPageModel(num);
 		
-		List<Notice> notices = service.getNotices(pageModel);
-		request.setAttribute("notices", notices);
-		request.setAttribute("pageModel", pageModel);
+//		List<Notice> notices = service.getNotices(pageModel);
+//		request.setAttribute("notices", notices);
+//		request.setAttribute("pageModel", pageModel);
 		mv.addObject("request", request);
 		mv.setViewName("notice/notice");
 		return mv;
