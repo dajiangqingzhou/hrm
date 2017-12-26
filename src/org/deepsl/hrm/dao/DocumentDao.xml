@@ -38,6 +38,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         </where>
     </delete>
     <update id="update" parameterType="document">
---         update document_inf set
+        update document_inf set title=#{title},fileName=#{fileName},fileUrl=#{fileUrl},
+        remark=#{remark},createDate=now() where id=#{id}
     </update>
+
+    <select id="selectById" parameterType="int" resultType="document">
+        select * from document_inf where id=#{id}
+    </select>
 </mapper>

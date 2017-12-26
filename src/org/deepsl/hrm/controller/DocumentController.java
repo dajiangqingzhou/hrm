@@ -1,10 +1,12 @@
 package org.deepsl.hrm.controller;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -75,14 +77,68 @@ public class DocumentController {
     }
 
     @RequestMapping("updateDocument")
-    public String updateDocument(Document document, Model model, Integer flag, MultipartFile file) {
-        if (flag == 1) {
+    public String updateDocument(Document document, Model model, Integer flag,HttpServletRequest request) {
+         if (flag == 1) {
             Document documentById = documentService.findDocumentById(document.getId());
             model.addAttribute("document",documentById);
             return "/document/showUpdateDocument";
         } else {
-            documentService.modifyDocument(document);
-            return "redirect:/document/selectDocument?pageIndex=1";
+             String originalFilename = document.getFile().getOriginalFilename();
+             String s = UUID.randomUUID().toString();
+             String str = s + originalFilename;
+             String realPath = request.getServletContext().getRealPath("/upload");
+             File uploadFile = new File(realPath,str);
+             if (!uploadFile.getParentFile().exists()){
+                 uploadFile.getParentFile().mkdirs();
+             }
+             document.setFileUrl(realPath + "\\" + str);
+             User user = (User) request.getSession().getAttribute("user");
+             document.setUser(user);
+             document.setFileName(str);
+             Document documentById = documentService.findDocumentById(document.getId());
+             String fileUrl = documentById.getFileUrl();
+             documentService.modifyDocument(document);
+             try {
+                 File file = new File(fileUrl);
+                 file.delete();
+                 document.getFile().transferTo(uploadFile);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+             return "redirect:/document/selectDocument?pageIndex=1";
+        }
+    }
+
+    @RequestMapping("download")
+    public void download(Integer id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Document documentById = documentService.findDocumentById(id);
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        if (documentById.getFileName() == null) {
+            response.setCharacterEncoding("utf-8");
+            response.getWriter().println("没有文件可供下载！！！");
+        } else {
+            try {
+                outputStream = response.getOutputStream();
+
+                // 设置文件输出类型
+                response.setContentType("application/octet-stream;charset=UTF-8");
+                //设置文件下载名
+
+                response.setHeader("Content-disposition", "attachment; filename="
+                        + new String(documentById.getFileName().getBytes("utf-8"), "utf-8"));
+                inputStream = new FileInputStream(new File(documentById.getFileUrl()));
+                byte[] bytes = new byte[1024];
+                int length = 0;
+                while ((length = inputStream.read(bytes, 0, bytes.length)) > 0) {
+                    outputStream.write(bytes, 0, length);
+                }
+
+                outputStream.close();
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

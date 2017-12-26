@@ -39,7 +39,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public Document findDocumentById(Integer id) {
         // TODO Auto-generated method stub
-        return null;
+        return documentDao.selectById(id);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public void deleteDocumentByIds(List<Integer> idsList) {
-        Map<String,List<Integer>> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>();
         map.put("idsList",idsList);
         documentDao.deleteDocumentByIds(map);
     }
