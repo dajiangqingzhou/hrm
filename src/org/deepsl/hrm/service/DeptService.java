@@ -12,7 +12,7 @@ public interface DeptService {
 	// 动态查询
 	//List<Dept> selectByPage(Map<String, Object> params);
 	
-	//Integer count(Map<String, Object> params);
+	//Integer count(Map<String, Object> params);//
 	
 	List<Dept> selectAllDept();
 	
