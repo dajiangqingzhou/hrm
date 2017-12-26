@@ -84,11 +84,11 @@
 		  <table width="100%" border="0" cellpadding="0" cellspacing="10" class="main_tab">
 		    <tr>
 			  <td class="fftd">
-			  	<form name="deptform" method="post" id="deptform" action="${ctx}/dept/selectDept">
+			  	<form name="deptform" method="post" id="deptform" action="${ctx}/dept/selectAllDept">
 				    <table width="100%" border="0" cellpadding="0" cellspacing="0">
 					  <tr>
 					    <td class="font3">
-					    	部门名称：<input type="text" name="name">
+					    	部门名称：<input type="text" name="keyName">
 					    	 <input type="submit" value="搜索"/>
 					    	<input id="delete" type="button" value="删除"/>
 					    </td>
@@ -111,6 +111,7 @@
 			  <td>详细信息</td>
 			  <td align="center">操作</td>
 			</tr>
+
 			<c:forEach items="${requestScope.depts}" var="dept" varStatus="stat">
 				<tr id="data_${stat.index}" align="center" class="main_trbg" onMouseOver="move(this);" onMouseOut="out(this);">
 					<td><input type="checkbox" id="box_${stat.index}" value="${dept.id}"></td>
@@ -131,7 +132,7 @@
 	  	        pageSize="${requestScope.pageModel.pageSize}" 
 	  	        recordCount="${requestScope.pageModel.recordCount}" 
 	  	        style="digg"
-	  	        submitUrl="${ctx}/dept/selectDept?pageIndex={0}"/>
+	  	        submitUrl="${ctx}/dept/selectAllDept?pageIndex={0}"/>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>

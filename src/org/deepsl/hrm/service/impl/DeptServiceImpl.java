@@ -1,5 +1,6 @@
 package org.deepsl.hrm.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,8 +90,17 @@ public List<Dept> selectByKey() {
 
 @Override
 public List<Dept> selectByPage(Dept dept, PageModel pageModel) {
-	// TODO Auto-generated method stub
-	return null;
+	 Map<String,Object> map = new HashMap<>();
+	 map.put("dept", dept);
+	 map.put("pageModel", pageModel);
+	 //查询数量
+	 Integer count = dao.count(map);
+	 if (count==0) {
+		return null;
+	}
+	 //封装数据到pageModel
+	 pageModel.setRecordCount(count);
+	 return dao.selectByPage(map);
 }
 	
 

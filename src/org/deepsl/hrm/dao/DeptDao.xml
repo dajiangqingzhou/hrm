@@ -27,9 +27,27 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <update id="update" parameterType="dept" >
         update dept_inf set name=#{name},remark=#{remark} where id=#{id};
     </update>
+    
+    
+<select id="count" parameterType="map" resultType="int">
+  select count(*) from dept_inf
+  <where>
 
-  <!--    <select id="selectAllDeptBYPage" parameterType="dept"  resultType="org.deepsl.hrm.domain.Dept" >
-		 select * from  dept_inf limit ; 
-   </select> -->
+    <if test="dept!=null and  dept.name!=null and !dept.name.trim().isEmpty()" >
+    and name like #{dept.name} 
+    </if>   
+  </where>  
+</select>
+
+<select id="selectByPage" parameterType="map" resultType="org.deepsl.hrm.domain.Dept">
+  select * from dept_inf
+  <where>
+
+    <if test="dept!=null and  dept.name!=null and !dept.name.trim().isEmpty()" >
+    and name like #{dept.name} 
+    </if>   
+  </where>
+  LIMIT #{pageModel.pageSize} OFFSET #{pageModel.firstLimitParam}
+</select>
 
 </mapper>
