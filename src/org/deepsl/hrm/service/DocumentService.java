@@ -36,4 +36,6 @@ public interface DocumentService {
      * @param Document 公告对象
      * */
     void modifyDocument(Document document);
+
+    void deleteDocumentByIds(List<Integer> idsList);
 }

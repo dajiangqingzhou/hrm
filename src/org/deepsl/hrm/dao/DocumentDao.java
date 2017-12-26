@@ -32,5 +32,6 @@ public interface DocumentDao {
 		
 	// 动态修改文档
  	void update(Document document);
-		
+
+	void deleteDocumentByIds(Map<String,List<Integer>> map);
 }

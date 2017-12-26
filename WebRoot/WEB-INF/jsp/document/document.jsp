@@ -174,9 +174,10 @@
 	  	      pageIndex="${pageModel.pageIndex}" 
 	  	      pageSize="${pageModel.pageSize}" 
 	  	      recordCount="${pageModel.recordCount}" 
-	  	      submitUrl="${ctx}/document/selectDocument.action?pageModel.pageIndex={0}&document.title=${document.title}"
+	  	      submitUrl="${ctx}/document/selectDocument?pageIndex={0}"
 	  	      style="flickr"
 	  	      />
+		  <%--&document.title=${document.title}--%>
 	  </td></tr>
 	</table>
 	<div style="height:10px;"></div>

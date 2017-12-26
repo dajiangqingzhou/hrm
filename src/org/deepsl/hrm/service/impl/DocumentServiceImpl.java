@@ -17,23 +17,16 @@ public class DocumentServiceImpl implements DocumentService {
     DocumentDao documentDao;
     @Override
     public List<Document> findDocument(Document document, PageModel pageModel) {
-        // TODO Auto-generated method stub
-        Map<String,Object> params = new HashMap<>();
-        if(document.getTitle() !=null){
-            params.put("title", "%"+document.getTitle() +"%");
-        }else{
-            params.put("title","%%");
+        Map<String,Object> map = new HashMap<>();
+        map.put("document",document);
+        map.put("pageModel",pageModel);
+        Integer count = documentDao.count(map);
+        if (count == 0) {
+            return null;
         }
-        Integer count = documentDao.count(params);
-
         pageModel.setRecordCount(count);
-        int pageIndex = pageModel.getPageIndex();
-        int pageSize = pageModel.getPageSize();
-
-        params.put("offset",(pageIndex-1)*pageSize);
-        params.put("limit",pageSize);
-        List<Document> selectByPage = documentDao.selectByPage(params);
-        return selectByPage;
+        List<Document> documents = documentDao.selectByPage(map);
+        return documents;
 
     }
 
@@ -58,6 +51,15 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void modifyDocument(Document document) {
         // TODO Auto-generated method stub
+        documentDao.update(document);
 
     }
+
+    @Override
+    public void deleteDocumentByIds(List<Integer> idsList) {
+        Map<String,List<Integer>> map = new HashMap<>();
+        map.put("idsList",idsList);
+        documentDao.deleteDocumentByIds(map);
+    }
+
 }
