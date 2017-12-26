@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 import org.deepsl.hrm.domain.Document;
 import org.deepsl.hrm.domain.User;
 import org.deepsl.hrm.service.HrmService;
+import org.deepsl.hrm.service.OtherServiceInterface;
+import org.deepsl.hrm.service.impl.OtherServiceImpl;
 import org.deepsl.hrm.util.common.HrmConstants;
 import org.deepsl.hrm.util.tag.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +33,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DocumentController {
 
+	@Autowired
+	OtherServiceInterface otherService;
+	
+	@RequestMapping("selectDocument")
+	public String selectDocument(Model model,Document document,PageModel pageModel){
+		
+		List<Document> findDocument = otherService.findDocument(document, pageModel);
+		model.addAttribute("documents", findDocument);
+		return "jsp/document";
+	}
+	
+	
  
 }
