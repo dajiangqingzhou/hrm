@@ -45,4 +45,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <select id="selectById" parameterType="int" resultType="document">
         select * from document_inf where id=#{id}
     </select>
+
+    <insert id="save" parameterType="document">
+        insert into document_inf values(null,#{title},#{fileName},#{fileUrl},#{remark},now(),#{user.id})
+    </insert>
 </mapper>

@@ -141,4 +141,30 @@ public class DocumentController {
             }
         }
     }
+
+    /*
+	 * 添加文档
+	 * */
+    @RequestMapping("addDocument")
+    public String addDocument(String flag,Model model,Document document,HttpServletRequest req,HttpServletResponse resp) throws IOException {
+        if(flag.equals("1")){
+            return "document/showAddDocument";
+        }
+        String originalFilename = document.getFile().getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+
+        String fileName = uuid+originalFilename;
+        document.setFileName(fileName);
+
+        String fileUrl = req.getServletContext().getRealPath("/upload/"+fileName);
+        document.setFileUrl(fileUrl);
+
+        File file = new File(fileUrl);
+        document.getFile().transferTo(file);
+
+        document.setUser((User)req.getSession().getAttribute("user_session"));
+
+        documentService.addDocument(document);
+        return "redirect:/document/selectDocument";
+    }
 }

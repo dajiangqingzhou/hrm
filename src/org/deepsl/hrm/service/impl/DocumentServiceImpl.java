@@ -33,7 +33,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public void addDocument(Document document) {
         // TODO Auto-generated method stub
-
+        documentDao.save(document);
     }
 
     @Override
