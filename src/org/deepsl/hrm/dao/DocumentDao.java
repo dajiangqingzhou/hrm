@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 import org.deepsl.hrm.domain.Document;
+import org.springframework.stereotype.Repository;
 
 import static org.deepsl.hrm.util.common.HrmConstants.DOCUMENTTABLE;
 
@@ -13,6 +14,7 @@ import static org.deepsl.hrm.util.common.HrmConstants.DOCUMENTTABLE;
  * @Description: DocumentMapper接口  
  * @version V1.0   
  */
+@Repository
 public interface DocumentDao {
 
 	 

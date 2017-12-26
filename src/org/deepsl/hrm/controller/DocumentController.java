@@ -3,11 +3,13 @@ package org.deepsl.hrm.controller;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.deepsl.hrm.domain.Document;
 import org.deepsl.hrm.domain.User;
+import org.deepsl.hrm.service.DocumentService;
 import org.deepsl.hrm.service.HrmService;
 import org.deepsl.hrm.util.common.HrmConstants;
 import org.deepsl.hrm.util.tag.PageModel;
@@ -28,8 +30,19 @@ import org.springframework.web.servlet.ModelAndView;
  * @version V1.0   
  */
 
+@RequestMapping("document")
 @Controller
 public class DocumentController {
 
+    @Autowired
+    DocumentService documentService;
+
+    @RequestMapping("selectDocument")
+    public String selectDocument(Model model, String title, Integer pageIndex, HttpServletRequest request) {
+        String str = "%" + title + "%";
+        Document document = new Document();
+        document.setTitle(str);
+        return null;
+    }
  
 }
