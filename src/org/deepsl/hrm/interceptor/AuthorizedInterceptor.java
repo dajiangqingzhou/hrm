@@ -72,9 +72,9 @@ public class AuthorizedInterceptor  implements HandlerInterceptor {
 		}
 
         /** 如果需要 则拦截请求 */
-//		if (!flag){
-//			request.getRequestDispatcher("/loginForm").forward(request,response);
-//		}
+		if (!flag){
+			request.getRequestDispatcher("/loginForm").forward(request,response);
+		}
         return true;
 		
 	}
