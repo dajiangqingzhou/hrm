@@ -23,9 +23,9 @@
     <!--</bean>-->
     <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://192.168.6.3:3306/hrm"/>
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.6.99:3306/hrm"/>
         <property name="user" value="root"/>
-        <property name="password" value="123456"/>
+        <property name="password" value="123123"/>
 
 
     </bean>
