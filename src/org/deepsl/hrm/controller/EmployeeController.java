@@ -1,8 +1,6 @@
 package org.deepsl.hrm.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.annotations.ResultMap;
 import org.deepsl.hrm.domain.Dept;
@@ -38,9 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("employee")
 public class EmployeeController {
 
-    public EmployeeController() {
-        System.out.println("----EmployeeController");
-    }
 
     @Autowired
     EmployeeService employeeService;
@@ -52,7 +47,11 @@ public class EmployeeController {
     DeptService deptService;
 
     @RequestMapping("addEmployee")
-    public String addEmployee(String flag, Employee employee) {
+    public String addEmployee(String flag, Employee employee ,Model model) {
+        List<Job> jobs = otherService.findAllJob();
+        model.addAttribute("jobs", jobs);
+        List<Dept> depts = deptService.selectAllDept();
+        model.addAttribute("depts", depts);
         if (flag != null) {
             //flag=1只是跳转到添加员工页面
             if ("1".equals(flag)) {
@@ -73,7 +72,7 @@ public class EmployeeController {
     @RequestMapping("selectEmployee")
     public String selectEmployee(HttpServletRequest request,
                                  PageModel pageModel, EmployeeCondition condition, Model model) {
-
+        System.out.println("----" + condition);
         List<Job> jobs = otherService.findAllJob();
         model.addAttribute("jobs", jobs);
         List<Dept> depts = deptService.selectAllDept();
@@ -113,17 +112,30 @@ public class EmployeeController {
     @RequestMapping("updateEmployee")
     public String updateEmployee(String flag, int id, Model model, Employee employee) {
         if ("1".equals(flag)) {
+            /*跳转到更新页面，回显数据*/
             Employee employee1 = employeeService.findEmployeeById(id);
+            /*下拉列表用的数据*/
             List<Job> jobs = otherService.findAllJob();
             model.addAttribute("jobs", jobs);
+            List<Dept> depts = deptService.selectAllDept();
+            model.addAttribute("depts", depts);
+
             model.addAttribute("employee", employee1);
             return "/employee/showUpdateEmployee";
         } else if ("2".equals(flag)) {
+            /*更新数据*/
             employeeService.updateEmployee(employee);
 
-            return null;
+            return "/employee/employee";
         }
-        return null;
+        return "/employee/employee";
+    }
+
+    @RequestMapping("removeEmployee")
+    public String removeEmployee(Integer[] ids){
+        List<Integer> idList = Arrays.asList(ids);
+        employeeService.deleteByIds(idList);
+        return "forward:selectEmployee";
     }
 
     private Map<String, Object> bean2Map(EmployeeCondition condition) {
