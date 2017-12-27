@@ -21,7 +21,7 @@
                      javaType="job">
             <id property="id" column="id"></id>
         </association>
-        <association property="dept" column="depId" select="org.deepsl.hrm.dao.DeptDao.selectById"
+        <association property="dept" column="deptId" select="org.deepsl.hrm.dao.DeptDao.selectById"
                      javaType="dept">
             <id property="id" column="id"></id>
         </association>
@@ -31,6 +31,18 @@
         select * from employee_inf where id = #{id};
     </select>
 
+    <update id="update" parameterType="employee">
+        update employee_inf set name=#{name},cardId=#{cardId},address=#{address},postCode=#{postCode},tel=#{tel},phone=#{phone},qqNum=#{qqNum},email=#{email},sex=#{sex},party=#{party},deptId=#{dept.id},jobId=#{job.id},birthday=#{birthday},race=#{race},education=#{education},speciality=#{speciality},hobby=#{hobby},remark=#{remark} where id=#{id};
+    </update>
+
+    <delete id="deleteByIds" parameterType="list">
+        DELETE from employee_inf
+        <where>
+            <foreach collection="idList" item="id">
+               or id=#{id}
+            </foreach>
+        </where>
+    </delete>
 
     <sql id="employeeCondition">
         <where>
@@ -49,7 +61,7 @@
             <if test=" phone !=null">
                 and phone = #{phone}
             </if>
-            <if test=" dept_id =null">
+            <if test=" dept_id !=null">
                 and deptId = #{dept_id}
             </if>
         </where>

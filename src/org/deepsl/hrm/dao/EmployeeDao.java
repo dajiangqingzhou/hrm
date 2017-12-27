@@ -1,5 +1,6 @@
 package org.deepsl.hrm.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ public interface EmployeeDao {
 
 	// 根据id删除员工
  	void deleteById(Integer id);
+
+ 	void deleteByIds(HashMap<String,Object> map);
 	
 	// 根据id查询员工
   
