@@ -29,7 +29,6 @@
 		
     	/** 员工表单提交 */
 		$("#employeeForm").submit(function(){
-			alert(1);
 			var name = $("#name");
 			var cardId = $("#cardId");
 			var education = $("#education");
@@ -155,7 +154,7 @@
 					    		</select>
 					    </td>
 		    			<td class="font3 fftd">职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：
-		    			 	<select id="job_id" name="job_id" style="width:143px;">
+		    			 	<select id="job_id" name="job.id" style="width:143px;">
 					    			<option value="0">--请选择职位--</option>
 					    			<c:forEach items="${requestScope.jobs }" var="job">
 					    				<option value="${job.id }">${job.name }</option>
@@ -213,7 +212,7 @@
 				<td class="font3 fftd">
 					备&nbsp;&nbsp;&nbsp;&nbsp;注：<input name="remark" id="remark" size="40" value="${employee.remark }"/>
 					&nbsp;&nbsp;所属部门：
-					<select  name="dept_id" style="width:100px;">
+					<select  name="dept.id" style="width:100px;">
 						   <option value="0">--部门选择--</option>
 						   <c:forEach items="${requestScope.depts }" var="dept">
 						   		<c:choose>
